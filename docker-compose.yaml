@@ -17,48 +17,48 @@ services:
 #      FLASK_ENV: "development"
     volumes:
       - .:/usr/src/abc_rest:rw
-#    links:
-#      - mongodb
+    links:
+      - mongodb
     networks: 
         abcrest_network:
           aliases:
             - abcrest_host
 
-#  mongodb:
-#    image: mongo
-#    container_name: abcmongodb
-#    restart: always
-#    command: [--auth]
-#    environment:
-#      MONGO_INITDB_ROOT_USERNAME: root
-#      MONGO_INITDB_ROOT_PASSWORD: root1234
-#      MONGO_INITDB_DATABASE: admin
-#    ports:
-#      - "27017:27017"
-#    volumes:
-#      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
-#    networks:
-#        abcrest_network:
-#          aliases:
-#            - abcmongodb_host
+  mongodb:
+    image: mongo
+    container_name: abcmongodb
+    restart: always
+    command: [--auth]
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root1234
+      MONGO_INITDB_DATABASE: admin
+    ports:
+      - "27017:27017"
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+        abcrest_network:
+          aliases:
+            - abcmongodb_host
 
-#  mongo-express:
-#    image: mongo-express
-#    container_name: abcmongo-express
-#    restart: always
-#    environment:
-#      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-#      ME_CONFIG_MONGODB_ADMINPASSWORD: root1234
-#      ME_CONFIG_MONGODB_SERVER: mongodb
-#      ME_CONFIG_MONGODB_PORT: "27017"
-#    ports:
-#      - "8081:8081"
-#    networks:
-#        abcrest_network:
-#          aliases:
-#            - abcmongoexp_host
-#    depends_on:
-#      - mongodb
+  mongo-express:
+    image: mongo-express
+    container_name: abcmongo-express
+    restart: always
+    environment:
+      ME_CONFIG_MONGODB_ADMINUSERNAME: root
+      ME_CONFIG_MONGODB_ADMINPASSWORD: root1234
+      ME_CONFIG_MONGODB_SERVER: mongodb
+      ME_CONFIG_MONGODB_PORT: "27017"
+    ports:
+      - "8081:8081"
+    networks:
+        abcrest_network:
+          aliases:
+            - abcmongoexp_host
+    depends_on:
+      - mongodb
     
 #volumes:
 #  schemas: {}
